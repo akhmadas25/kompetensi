@@ -15,7 +15,7 @@ router.get("/detailCollection/:id", function(request, response) {
         const query2 = `SELECT t.id, t.collections_id, t.name, t.is_done
         FROM collections_tb c
         INNER JOIN task_tb t
-        ON c.id = t.collections_id WHERE t.collections_id = ${id}`
+        ON c.id = t.collections_id WHERE t.collections_id = ${id} && t.is_done = 'undone'`
         
         dbConnection.getConnection(function (err,conn) {
         if (err) throw err
@@ -42,7 +42,7 @@ router.get("/detailCollection/:id", function(request, response) {
                 })
                 }
             response.render("collections/detail", {title: "collections", isLogin: request.session.isLogin,
-            task, done })
+            task, done, id })
             })
             conn.release()
         })
@@ -76,6 +76,7 @@ router.post("/addTask", function (request, response){
 
 router.post("/done/:id", function(request, response){
     const id = request.params.id
+    const collection = request.body
     const query = `UPDATE task_tb SET is_done = 'done' WHERE id = ${id}`
     dbConnection.getConnection(function(err,conn){
         if(err) throw err

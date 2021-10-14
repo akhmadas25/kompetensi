@@ -76,12 +76,10 @@
             <div class="mb-3">
                 <label class="form-label">Add Task</label>
                 <input type="text" class="form-control" name="task">
-                {{#each task}}
-                <input type="hidden" name="collection" value="{{this.collections_id}}">
-                {{/each}}
+                <input type="hidden" name="collection" value="{{id}}">
             </div>
             <div class="text-center">
-                <button class="btn btn-warning mt-4 signup " type="submit">Add Genre</button>
+                <button class="btn btn-warning mt-4 signup " type="submit">Add Task</button>
             </div>
         </form>
       </div>
