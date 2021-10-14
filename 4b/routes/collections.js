@@ -7,28 +7,38 @@ const isLogin = false
 router.get("/detailCollection/:id", function(request, response) {
     if (request.session.isLogin){
         const id = request.params.id
-        const query = `SELECT * FROM task_tb WHERE collections_id = ${id}`
-    
+        const query1 = `SELECT * FROM task_tb WHERE collections_id = ${id} && is_done = 'done'`
+        const query2 = `SELECT * FROM task_tb WHERE collections_id = ${id} && is_done = 'undone'`
         dbConnection.getConnection(function (err,conn) {
         if (err) throw err
-        conn.query(query, function (err, results) {
+        conn.query(query2, function (err, results) {
             if (err) throw err
-            const collections = []
+            const task = []
     
             for (var result of results) {
-            collections.push({
+            task.push({
                 id: result.id,
                 name: result.name,
-                status: result.is_done,
                 collections_id: result.collections_id
             })
             }
-            response.render("collections/detail", {title: "collections", 
-            isLogin: request.session.isLogin,
-            collections
+            conn.query(query1, function(err, results){
+                if (err) throw err
+            
+            const done = []
+    
+            for (var result of results) {
+            done.push({
+                id: result.id,
+                name: result.name,
+                collections_id: result.collections_id
             })
+            }
+            response.render("collections/detail", {title: "collections", isLogin: request.session.isLogin,
+            task, done })
+            })
+            conn.release()
         })
-        conn.release()
         })
     }
     else {
@@ -55,6 +65,20 @@ router.post("/addTask", function (request, response){
 
             conn.release()
         })
+})
+
+router.post("/done/:id", function(request, response){
+    const id = request.params.id
+    const query = `UPDATE task_tb SET is_done = 'done' WHERE id = ${id}`
+    dbConnection.getConnection(function(err,conn){
+        if(err) throw err
+        conn.query(query,function(err,result) {
+            if (err) throw err
+            response.redirect(`/detailCollection/${id}`)
+        })
+
+        conn.release()
+    })
 })
 
 module.exports = router

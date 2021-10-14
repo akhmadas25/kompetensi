@@ -16,7 +16,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{#each collections}}
+                    {{#each task}}
                     <tr>
                     <td>{{this.name}}</td>
                     <td>
@@ -39,11 +39,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{#each collections}}
+                    {{#each done}}
                     <tr>
                     <td>{{this.name}}</td>
                     <td>
-                        <a class="btn btn-success" href="/done/{{this.id}}">done</a>
                         <a class="btn btn-danger" href="/delete/{{this.id}}">delete</a>
                     </td>
                     </tr>
