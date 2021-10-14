@@ -1,0 +1,85 @@
+{{> header}}
+
+
+
+{{> navbar}}
+<main>
+<div class="container-fluid">
+    <div class="container mt-5">
+        <a class="btn btn-outline-danger" href="/deleteCollection/{{collection_id}}">delete</a>
+        <button class="btn btn-primary ms-5" data-bs-toggle="modal" data-bs-target="#addTask">add Task</button>
+            <table class="table mt-3">
+                <thead>
+                    <tr>
+                    <th scope="col">todo task</th>
+                    <th scope="col">action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each collections}}
+                    <tr>
+                    <td>{{this.name}}</td>
+                    <td>
+                        <form action="/done/{{this.id}}" method="post">
+                            <button class="btn btn-success" type="submit" >done</button>
+                        </form>
+                        <form action="/delete/{{this.id}}" method="post">
+                            <button class="btn btn-danger" type="submit">delete</button>
+                        </form>
+                    </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            <table class="table mt-3">
+                <thead>
+                    <tr>
+                    <th scope="col">done task</th>
+                    <th scope="col">action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each collections}}
+                    <tr>
+                    <td>{{this.name}}</td>
+                    <td>
+                        <a class="btn btn-success" href="/done/{{this.id}}">done</a>
+                        <a class="btn btn-danger" href="/delete/{{this.id}}">delete</a>
+                    </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</main>
+
+<div class="modal fade" id="addTask">
+    <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/addTask" method="POST">
+            <div class="mb-3">
+                <label class="form-label">Add Task</label>
+                <input type="text" class="form-control" name="task">
+                {{#each collections}}
+                <input type="hidden" name="collection" value="{{this.collections_id}}">
+                {{/each}}
+            </div>
+            <div class="text-center">
+                <button class="btn btn-warning mt-4 signup " type="submit">Add Genre</button>
+            </div>
+        </form>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{{> footer}}

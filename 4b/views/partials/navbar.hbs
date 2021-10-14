@@ -1,0 +1,30 @@
+   <header class="p-3 bg-dark text-white">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="/" class="nav-link px-2 text-white">Home</a></li>
+        </ul>
+
+        {{#if isLogin}}
+        <div class="dropdown text-end">
+          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src='/public/images/user.png' alt="mdo" width="40" height="40" class="rounded-circle">
+          </a>
+          <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/myCollections/{{user_id}}">My collections</a></li>
+            <li><a class="dropdown-item" href="/signout">Sign out</a></li>
+          </ul>
+        </div>
+        {{else}}
+        <div class="text-end">
+          <a href="/login" class="btn btn-primary me-2">Login</a>
+          <a href="/signup" class="btn btn-warning">Sign-up</a>
+        </div>
+        {{/if}}
+      </div>
+    </div>
+  </header>
+
+
