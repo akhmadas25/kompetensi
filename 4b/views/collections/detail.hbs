@@ -1,13 +1,21 @@
 {{> header}}
 
-
+{{#if message}}
+  <div class="alert alert-{{message.type}}" role="alert">
+    {{message.message}}
+  </div>
+{{/if}}
 
 {{> navbar}}
 <main>
 <div class="container-fluid">
     <div class="container mt-5">
-        <a class="btn btn-outline-danger" href="/deleteCollection/{{collection_id}}">delete</a>
-        <button class="btn btn-primary ms-5" data-bs-toggle="modal" data-bs-target="#addTask">add Task</button>
+        {{#each task}}
+        <form action="/deleteCollection/{{this.collections_id}}" method="post">
+            <button class="btn btn-outline-danger" type="submit">delete</button>
+        </form>
+        {{/each}}
+        <button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#addTask">add Task</button>
             <table class="table mt-3">
                 <thead>
                     <tr>
@@ -43,7 +51,9 @@
                     <tr>
                     <td>{{this.name}}</td>
                     <td>
-                        <a class="btn btn-danger" href="/delete/{{this.id}}">delete</a>
+                        <form action="/delete/{{this.id}}" method="post">
+                            <button class="btn btn-danger" type="submit">delete</button>
+                        </form>
                     </td>
                     </tr>
                     {{/each}}
@@ -66,7 +76,7 @@
             <div class="mb-3">
                 <label class="form-label">Add Task</label>
                 <input type="text" class="form-control" name="task">
-                {{#each collections}}
+                {{#each task}}
                 <input type="hidden" name="collection" value="{{this.collections_id}}">
                 {{/each}}
             </div>

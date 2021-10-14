@@ -78,9 +78,9 @@ router.post('/login', function(request,response) {
           request.session.isLogin = true;
   
           request.session.user = {
-            id: results[0].user_id,
+            id: results[0].id,
             email: results[0].email,
-            status: results[0].status
+            username: results[0].username
           }
             response.redirect('/')
         }

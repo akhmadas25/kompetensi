@@ -1,0 +1,25 @@
+{{> header}}
+
+{{> navbar}}
+
+<main class="flex-shrink-0">
+    <div class="container mt-5 mb-5">
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="col-md-6">
+                    <form action="/addCollections" method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">collection</label>
+                        <input type="text" class="form-control" name="collection">
+                        <input type="hidden" name="user_id" value={{user_id}}>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-warning mt-4 signup " type="submit">Add collection</button>
+                    </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>
+</main>
+
+{{> footer}}
